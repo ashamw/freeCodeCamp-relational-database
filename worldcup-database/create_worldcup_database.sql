@@ -1,0 +1,20 @@
+CREATE DATABASE worldcup;
+\c worldcup;
+CREATE TABLE teams;
+CREATE TABLE games;
+ALTER TABLE teams ADD COLUMN team_id SERIAL;
+ALTER TABLE teams ADD PRIMARY KEY(team_id);
+ALTER TABLE teams ADD UNIQUE(name);
+ALTER TABLE games ADD COLUMN game_id SERIAL PRIMARY KEY;
+ALTER TABLE games ADD COLUMN year INT;
+ALTER TABLE games ADD COLUMN round VARCHAR;
+ALTER TABLE games ADD COLUMN winner_id INT;
+ALTER TABLE games ADD COLUMN opponent_id INT;
+ALTER TABLE games ADD FOREIGN KEY(winner_id) REFERENCES teams(team_id);
+ALTER TABLE games ADD FOREIGN KEY(opponent_id) REFERENCES teams(team_id);
+ALTER TABLE ADD COLUMN winner_goals INT;
+ALTER TABLE ADD COLUMN opponent_goals INT;
+ALTER TABLE games ALTER COLUMN year SET NOT NULL, ALTER COLUMN round SET NOT NULL, 
+                  ALTER COLUMN winner_id SET NOT NULL, ALTER COLUMN opponent_id SET NOT NULL, 
+                  ALTER COLUMN winner_goals SET NOT NULL, ALTER COLUMN opponent_goals SET NOT NULL;
+ALTER TABLE teams ALTER COLUMN name SET NOT NULL;
